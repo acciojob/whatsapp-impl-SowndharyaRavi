@@ -48,11 +48,9 @@ public class WhatsappRepository {
             if(userMobile.contains(mobile)){
                 throw new Exception("User already exists");
             }
-            else{
-                userMobile.add(mobile);
-                User user=new User(name,mobile);
-                return "SUCCESS";
-            }
+            User user=new User(name,mobile);
+            userMobile.add(mobile);
+            return "SUCCESS";
         }
 
     public Group createGroup(List<User> users){
