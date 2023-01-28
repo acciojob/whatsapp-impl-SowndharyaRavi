@@ -48,7 +48,7 @@ public class WhatsappRepository {
     public Group createGroup(List<User> users){
         if(users.size()>2){
             customGroupCount++;
-            Group group=new Group(String.valueOf(customGroupCount), users.size());
+            Group group=new Group("Group "+customGroupCount, users.size());
             groupUserMap.put(group,users);
             adminMap.put(group,users.get(0));
             return group;
@@ -63,13 +63,13 @@ public class WhatsappRepository {
 
     public int createMessage(String content){
         messageId++;
-        Message msg=new Message(messageId,content);
+        Message msg=new Message(messageId,content,new Date());
         msgDb.put(messageId,msg);
         return messageId;
     }
 
     public int sendMessage(Message message, User sender, Group group) throws Exception{
-        if(groupUserMap.containsKey(group)){
+        if(!groupUserMap.containsKey(group)){
             throw new Exception(("Group does not exist"));
         }
         boolean isMember=false;
